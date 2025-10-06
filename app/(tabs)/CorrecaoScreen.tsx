@@ -56,7 +56,7 @@ interface PastaProva {
 
 const PROVAS_STORAGE_KEY = '@GabaritoApp:provas';
 const IMAGENS_STORAGE_KEY = '@GabaritoApp:imagens';
-const API_URL = 'http://172.20.10.4:5000/corrigir';
+const API_URL = 'http://192.168.18.6:5000/corrigir';
 // Diretório para salvar as imagens normalizadas
 const NORMALIZED_IMAGES_DIR = `${FileSystem.documentDirectory}normalized_images/`;
 

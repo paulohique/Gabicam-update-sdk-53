@@ -20,7 +20,7 @@ import { Feather } from '@expo/vector-icons';
 import HeaderPadrao from '../../components/HeaderPadrao';
 
 const API_URL = Platform.OS === 'android'
-  ? 'http://172.20.10.4:5000/corrigir'
+  ? 'http://192.168.18.6:5000/corrigirir'
   : 'http://localhost:5000/corrigir';
 
 // Diretório para salvar as imagens normalizadas

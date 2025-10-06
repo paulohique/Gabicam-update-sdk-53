@@ -8,7 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 20p            // QR code realista baseado na imagem fornecida
+            const qrCodePattern = `
+                <div style="display: grid; grid-template-columns: repeat(17, 1fr); gap: 0; width: 65px; height: 65px; margin: 0 auto;">`
             background-color: #f5f5f5;
             display: flex;
             justify-content: center;
@@ -28,19 +30,19 @@
         
         /* Área do QR Code fora do quadrado */
         .qrcode-area {
-            width: 60px;
-            height: 60px;
-            border: 2px solid #000;
-            background-color: white;
+            width: 75px;
+            height: 75px;
+            background-color: transparent;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: 8px;
             text-align: center;
             color: #666;
             cursor: pointer;
-            transition: background-color 0.2s;
             margin-bottom: 20px;
+            padding: 4px;
         }
         
         .qrcode-area:hover {
@@ -321,47 +323,35 @@
         // Atualizar debug
         function atualizarDebug() {
             const debugDiv = document.getElementById('respostas-debug');
-            debugDiv.textContent = `Respostas: ${obterRespostas()}`;
+            if (debugDiv) {
+                debugDiv.textContent = `Respostas: ${obterRespostas()}`;
+            }
         }
         
-        // Gerar QR code simples (representação visual)
-        function gerarQRCode(texto = 'NOME_ALUNO') {
+        // Carregar imagem do QR code
+        function gerarQRCode(texto = 'teste') {
             const qrContainer = document.getElementById('qrcode-container');
             
-            // Criar um padrão visual simples que simula um QR code
-            let qrPattern = '';
-            for (let i = 0; i < 5; i++) {
-                for (let j = 0; j < 5; j++) {
-                    // Criar um padrão baseado no texto
-                    const isBlack = (texto.charCodeAt(i % texto.length) + i + j) % 2 === 0;
-                    qrPattern += isBlack ? '█' : '░';
-                }
-                qrPattern += '<br>';
-            }
-            
             qrContainer.innerHTML = `
-                <div style="font-size: 6px; line-height: 8px; font-family: monospace;">
-                    ${qrPattern}
-                </div>
-                <div style="font-size: 6px; margin-top: 2px; text-align: center;">
-                    ${texto.substring(0, 8)}
-                </div>
+                <img src="./assets/images/qrcode.png" 
+                     alt="QR Code" 
+                     style="width: 65px; height: 65px; object-fit: contain; display: block; margin: 0 auto;" />
             `;
         }
         
         // Permitir editar o nome no QR code
         function editarNomeQRCode() {
-            const nome = prompt('Digite o nome do aluno para o QR Code:', 'NOME_ALUNO');
+            const nome = prompt('Digite o nome do aluno para o QR Code:', 'teste');
             if (nome && nome.trim()) {
-                gerarQRCode(nome.trim().toUpperCase());
+                gerarQRCode(nome.trim().toLowerCase());
             }
         }
         
-        // Adicionar evento de clique no QR code para editar
+        // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
             gerarQuestoes();
             atualizarDebug();
-            gerarQRCode(); // Gerar QR code padrão
+            gerarQRCode('teste'); // Gerar QR code com "teste"
             
             // Permitir editar QR code clicando nele
             document.getElementById('qrcode-container').addEventListener('click', editarNomeQRCode);
